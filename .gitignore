@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#kite files
+kite_tutorial.ipynb
+kite_tutorial.ipynb.py
