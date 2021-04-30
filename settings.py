@@ -1,10 +1,9 @@
 # suppress warnings
 import warnings
-
-
 warnings.filterwarnings("ignore")
 
-# common imports
+
+# common python imports
 import matplotlib
 from matplotlib import pyplot as plt
 import pandas as pd
@@ -20,30 +19,17 @@ import seaborn as sns
 import regex as re
 import shutil
 import urllib.request 
-#import bamboolib as bam
 from datetime import datetime
-#from tqdm.auto import tqdm
+
+from tqdm.auto import tqdm
 
 # register `pandas.progress_apply` and `pandas.Series.map_apply` with `tqdm`
-#tqdm.pandas()
+tqdm.pandas()
 
 # pandas display options
 # https://pandas.pydata.org/pandas-docs/stable/user_guide/options.html#available-options
-#pd.options.display.max_columns = 30  # default 20
-#pd.options.display.max_rows = 999  # default 60
 pd.options.display.float_format = "{:.2f}".format
-# pd.options.display.precision = 2
 pd.options.display.max_colwidth = 200  # default 50; -1 = all
-# otherwise text between $ signs will be interpreted as formula and printed in italic
-#pd.set_option("display.html.use_mathjax", False)
-
-
-#pd.set_option('display.max_rows', 500)
-#pd.set_option('display.max_columns', 500)
-#pd.set_option('display.width', 1000)
-
-# np.set_printoptions(edgeitems=3) # default 3
-
 
 plot_params = {
     "figure.figsize": (10, 6),
@@ -55,13 +41,33 @@ plot_params = {
 }
 # adjust matplotlib defaults
 matplotlib.rcParams.update(plot_params)
-
-
 sns.set_style("darkgrid")
 
-# additional imports by Jay
-#from wordcloud import WordCloud
-#from PIL import Image
-#from collections import Counter
+
+RIVANA = False
+
+if RIVANA != True:
+    import findspark
+    findspark.init()
+
+from pyspark.ml import Pipeline
+from pyspark.sql import SparkSession
+from pyspark import SparkConf
+from pyspark.sql.functions import *
+from pyspark.sql.types import *
+from pyspark.sql.types import IntegerType
+from pyspark.sql.functions import udf
+from pyspark.sql.functions import col
+from pyspark.ml.feature import VectorAssembler
+from pyspark.ml.feature import OneHotEncoder, StringIndexer
+from pyspark.ml.classification import LogisticRegression
+from pyspark.ml.classification import DecisionTreeClassifier
+from pyspark.ml.tuning import ParamGridBuilder, CrossValidator
+from pyspark.ml.evaluation import BinaryClassificationEvaluator
+
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import plot_confusion_matrix
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
 
 print(f"Imports and display options set...")

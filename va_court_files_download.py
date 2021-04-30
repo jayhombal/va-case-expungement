@@ -13,23 +13,6 @@ from shutil import unpack_archive
 from zipfile import ZipFile
 
 
-# if running on UVA collab
-if UVA_COLAB:
-    BASE_DIR = "./"
-    DOWNLOAD_DATA = BASE_DIR + "download-data/"
-    CIRCUIT_CT_PATH = DOWNLOAD_DATA + "circuit/"
-    DISTRICT_CT_PATH = DOWNLOAD_DATA + "district/"
-    PROCESSED_PATH = BASE_DIR + "data/"
-
-# if running on local
-if LOCAL:
-    BASE_DIR = "./"
-    DOWNLOAD_DATA = BASE_DIR + "download-data/"
-    CIRCUIT_CT_PATH = DOWNLOAD_DATA + "circuit/"
-    DISTRICT_CT_PATH = DOWNLOAD_DATA + "district/"
-    PROCESSED_PATH = BASE_DIR + "data/"
-
-
 # ref https://mkyong.com/python/python-how-to-list-all-files-in-a-directory/
 def getFilelist(directory):
     files = []
@@ -72,32 +55,33 @@ def download_zip_file(file_urls, path):
                 
 
 circut_court_files = {
-    "2019": "https://s3.amazonaws.com/virginia-court-data/circuit_criminal_2019_anon_YNA8S7.zip",
-    "2018": "https://s3.amazonaws.com/virginia-court-data/circuit_criminal_2018_anon_1GI9Q0.zip",
-    "2017": "https://s3.amazonaws.com/virginia-court-data/circuit_criminal_2017_anon_VKJSJ2.zip",
-    "2016": "https://s3.amazonaws.com/virginia-court-data/circuit_criminal_2016_anon_712ZX2.zip",
-    "2015": "https://s3.amazonaws.com/virginia-court-data/circuit_criminal_2015_anon_S9DA5G.zip",
-    "2014": "https://s3.amazonaws.com/virginia-court-data/circuit_criminal_2014_anon_VSE5UB.zip",
-    "2013": "https://s3.amazonaws.com/virginia-court-data/circuit_criminal_2013_anon_3BWWKM.zip",
-    "2012": "https://s3.amazonaws.com/virginia-court-data/circuit_criminal_2012_anon_ZOCWYI.zip",
-    "2011": "https://s3.amazonaws.com/virginia-court-data/circuit_criminal_2011_anon_5J6VS4.zip",
-    "2010": "https://s3.amazonaws.com/virginia-court-data/circuit_criminal_2010_anon_1MTUIA.zip",
-    "2009": "https://s3.amazonaws.com/virginia-court-data/circuit_criminal_2009_anon_TIBLMH.zip",
+    "2020": "https://s3.amazonaws.com/virginia-court-data/circuit_criminal_2020_anon_SQYRXB.zip",
+    "2019": "https://s3.amazonaws.com/virginia-court-data/circuit_criminal_2019_anon_8JMX4R.zip",
+    "2018": "https://s3.amazonaws.com/virginia-court-data/circuit_criminal_2018_anon_1Y613I.zip",
+    "2017": "https://s3.amazonaws.com/virginia-court-data/circuit_criminal_2017_anon_B9BUKQ.zip",
+    "2016": "https://s3.amazonaws.com/virginia-court-data/circuit_criminal_2016_anon_HMVIZY.zip",
+    "2015": "https://s3.amazonaws.com/virginia-court-data/circuit_criminal_2015_anon_1WMI7Q.zip",
+    "2014": "https://s3.amazonaws.com/virginia-court-data/circuit_criminal_2014_anon_P2L0Y4.zip",
+    "2013": "https://s3.amazonaws.com/virginia-court-data/circuit_criminal_2013_anon_1FOA9N.zip",
+    "2012": "https://s3.amazonaws.com/virginia-court-data/circuit_criminal_2012_anon_Y6DBO7.zip",
+    "2011": "https://s3.amazonaws.com/virginia-court-data/circuit_criminal_2011_anon_P928SU.zip",
+    #"2010": "https://s3.amazonaws.com/virginia-court-data/circuit_criminal_2010_anon_LK0BM4.zip",
+    #"2009": "https://s3.amazonaws.com/virginia-court-data/circuit_criminal_2009_anon_TIBLMH.zip",
 }
 
 
 district_court_files = {
-    "2019": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2019_anon_HIVT8Y.zip",
-    "2018": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2018_anon_9BX4FX.zip",
-    "2017": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2017_anon_LV1WA2.zip",
-    "2016": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2016_anon_1PFMM7.zip",
-    "2015": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2015_anon_UPI0T4.zip",
-    "2014": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2014_anon_4QDGW6.zip",
-    "2013": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2013_anon_IP6B3A.zip",
-    "2012": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2012_anon_ZW03DI.zip",
-    "2011": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2011_anon_CF2XHW.zip",
-    "2010": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2010_anon_BVGQ48.zip",
-    "2009": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2009_anon_Q8RVBS.zip",
+    "2020": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2020_anon_PFP3JF.zip",
+    "2019": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2019_anon_I24Z9B.zip",
+    "2018": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2018_anon_S72VOG.zip",
+    "2017": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2017_anon_QCO2KE.zip",
+    "2016": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2016_anon_C4703U.zip",
+    "2015": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2015_anon_WZ57WS.zip",
+    "2014": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2014_anon_5IDVZ7.zip",
+    "2013": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2013_anon_5IBSOL.zip",
+    "2012": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2012_anon_F6G5KD.zip",
+    "2011": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2011_anon_IJEKQD.zip",
+    
 }
 
 
