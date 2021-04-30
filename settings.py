@@ -58,16 +58,26 @@ from pyspark.sql.types import *
 from pyspark.sql.types import IntegerType
 from pyspark.sql.functions import udf
 from pyspark.sql.functions import col
+
+from pyspark.ml.clustering import KMeans
+from pyspark.ml.evaluation import ClusteringEvaluator
+from pyspark.ml.evaluation import ClusteringEvaluator
+
 from pyspark.ml.feature import VectorAssembler
 from pyspark.ml.feature import OneHotEncoder, StringIndexer
 from pyspark.ml.classification import LogisticRegression
 from pyspark.ml.classification import DecisionTreeClassifier
 from pyspark.ml.tuning import ParamGridBuilder, CrossValidator
 from pyspark.ml.evaluation import BinaryClassificationEvaluator
+from pyspark.ml.classification import RandomForestClassifier
+from pyspark.ml.classification import LinearSVC
 
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import plot_confusion_matrix
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
 
+# setting seed to be used across all model's consistently
+SEED = 42 
+print(f"SEED variable set to {SEED}")
 print(f"Imports and display options set...")

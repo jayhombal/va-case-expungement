@@ -89,39 +89,42 @@ Evaluate Model
 def evaluate_model(predDF , model_name= 'Logistic Regression'):
     lr_evaluator1 = BinaryClassificationEvaluator(metricName='areaUnderROC',labelCol='candidate')
     lr_auroc = lr_evaluator1.evaluate(predDF)
-    print(f'The auroc value of {model_name} Model is {lr_auroc}')
+    print(f'The AUROC for {model_name} Model is {lr_auroc}')
 
     lr_evaluator = BinaryClassificationEvaluator(metricName='areaUnderPR', labelCol='candidate')
     lr_aupr = lr_evaluator2.evaluate(predDF)
-    print(f'The aupr value of {model_name} Model is {lr_aupr}')
+    print(f'The AUPR under precision recall for {model_name} Model is {lr_aupr}')
 
-    accuracy = predDF.filter(predDF.candidate == predDF.prediction).count() / float(predDF.count())
-    print(f"The Accuracy of {model_name} : {accuracy}")
-
-    FP =  predDF.filter(predDF['candidate'] == 0)\
-        .filter(predDF['prediction'] == 1).count()
+    FP =  predDF.filter('prediction = 1 AND candidate = 0').count()
     print("False Positive : ",FP)
-
-    TP =  predDF.filter(predDF['candidate'] == 1)\
-        .filter(predDF['prediction'] == 1).count()
+    
+    TP =  predDF.filter('prediction = 1 AND candidate = 1').count()
     print("True Positive : ",TP)
-
-
-    FN =  predDF.filter(predDF['candidate'] == 1)\
-        .filter(predDF['prediction'] == 0).count()
-
+    
+    FN =  predDF.filter('prediction = 0 AND candidate = 1').count()
     print("False Negative : ",FN)
 
-    TN =  predDF.filter(predDF['candidate'] == 0)\
-        .filter(predDF['prediction'] == 0).count()
-
+    TN =  predDF.filter('prediction = 0 AND candidate = 0').count()
     print("True Negative : ",TN)
-
+    
     Y_test = predDF.select('candidate').toPandas()['candidate']
     Y_Pred = predDF.select('prediction').toPandas()['prediction']
+    
     print(f'{model_name} model Acccuracy: {accuracy_score(Y_test, Y_Pred)}')
     print(classification_report(Y_test, Y_Pred))
 
     # get confusion matrix
     cf_matrix = confusion_matrix(Y_test, Y_Pred)
     print(f'{model_name} Confusion Matrix:\n {cf_matrix}')
+    
+
+'''
+ROC Dataframe
+'''
+def plotROC(roc_dataframe):
+    plt.plot(roc['FPR'],roc['TPR'])
+    plt.ylabel('False Positive Rate')
+    plt.xlabel('True Positive Rate')
+    plt.title('ROC Curve')
+    plt.show()
+    print('Training set areaUnderROC: ' + str(trainingSummary.areaUnderROC))
