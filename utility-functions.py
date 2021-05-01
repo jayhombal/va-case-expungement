@@ -57,19 +57,6 @@ def encode_class_and_chargetype(case_class, charge_type):
             else:
                 return 0
             
-'''
-1    1911290
-4     347758
-O     288893
-2     230037
-5     196218
-U     182073
-6     179654
-3     103155
-I         79
-C         62
-M          1
-'''
 """
 class imbalance down-sample the dataset
 """
@@ -140,3 +127,27 @@ def plotROC(roc_dataframe):
     plt.title('ROC Curve')
     plt.show()
     print('Training set areaUnderROC: ' + str(trainingSummary.areaUnderROC))
+    
+
+    
+'''
+builds the choropleth map object 
+'''
+def makeChoroMap(df, feature, title):
+    global counties
+    '''
+    This function takes in a df and a feature and produces a choromap in a defined geo area.
+    In this case, we are looking at virginia and the data has already been manipulated
+    where fips is the state of virginia fips code and feature is the feature you want to visualize.
+    '''
+    # get the range of values used to build the feature gradient
+    min_feature = df[feature].min()
+    max_feature = df[feature].max()
+    # build the figure object
+    viz = px.choropleth_mapbox(df, geojson=counties,locations='fips',color=feature,
+                    mapbox_style='carto-positron',
+                    zoom=5.5,center = {"lat": 38.0746, "lon": -78.4875},
+                    opacity=0.6, labels={feature:title},
+                    color_continuous_scale="Viridis",range_color=(min_feature, max_feature))
+    viz.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+    return viz
