@@ -71,7 +71,7 @@ circut_court_files = {
 
 
 district_court_files = {
-    "2020": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2020_anon_PFP3JF.zip",
+    "2020": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2020_anon_PFP3JS.zip",
     "2019": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2019_anon_I24Z9B.zip",
     "2018": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2018_anon_S72VOG.zip",
     "2017": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2017_anon_QCO2KE.zip",
@@ -80,7 +80,7 @@ district_court_files = {
     "2014": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2014_anon_5IDVZ7.zip",
     "2013": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2013_anon_5IBSOL.zip",
     "2012": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2012_anon_F6G5KD.zip",
-    "2011": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2011_anon_IJEKQD.zip",
+    "2011": "https://s3.amazonaws.com/virginia-court-data/district_criminal_2011_anon_1JEKQB.zip",
     
 }
 
@@ -185,7 +185,7 @@ def download_and_merge_court_data(court_type):
         circuit_df = circuit_df[circuit_columns].rename(columns=circuit_column_mapping)
 
         circuit_df.to_csv(
-            PROCESSED_PATH + "circuit_court_2009_2019.csv.gz",
+            PROCESSED_PATH + "circuit_court_2011_2020.csv.gz",
             index=False,
             compression="gzip",
             header=True,
@@ -209,7 +209,7 @@ def download_and_merge_court_data(court_type):
             "Race": "race",
             "Class": "class",
             "CaseType": "charge_type",
-            "AmendedChargeType": "ammended_charge_type"
+            "AmendedCharge": "ammended_charge_type"
             
         }
 
@@ -237,7 +237,7 @@ def download_and_merge_court_data(court_type):
         )
 
         district_df.to_csv(
-            PROCESSED_PATH + "district_court_2009_2019.csv.gz",
+            PROCESSED_PATH + "district_court_2011_2020.csv.gz",
             index=False,
             compression="gzip",
             header=True,

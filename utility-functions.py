@@ -57,7 +57,19 @@ def encode_class_and_chargetype(case_class, charge_type):
             else:
                 return 0
             
-
+'''
+1    1911290
+4     347758
+O     288893
+2     230037
+5     196218
+U     182073
+6     179654
+3     103155
+I         79
+C         62
+M          1
+'''
 """
 class imbalance down-sample the dataset
 """
@@ -91,7 +103,7 @@ def evaluate_model(predDF , model_name= 'Logistic Regression'):
     lr_auroc = lr_evaluator1.evaluate(predDF)
     print(f'The AUROC for {model_name} Model is {lr_auroc}')
 
-    lr_evaluator = BinaryClassificationEvaluator(metricName='areaUnderPR', labelCol='candidate')
+    lr_evaluator2 = BinaryClassificationEvaluator(metricName='areaUnderPR', labelCol='candidate')
     lr_aupr = lr_evaluator2.evaluate(predDF)
     print(f'The AUPR under precision recall for {model_name} Model is {lr_aupr}')
 
