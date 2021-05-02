@@ -72,8 +72,10 @@ def downsample(df, target='candidate', positive_label=1, negative_label=0, seed=
     
     majority_df = df.filter(col(target) == negative_label)
     print(f"majority class count: {majority_df.count()}")
+    
     minority_df = df.filter(col(target) == positive_label)
     print(f"minority class count: {minority_df.count()}")
+    
     ratio = majority_df.count()/minority_df.count()
     print(f"sampling ratio : {ratio}")
     
@@ -109,13 +111,26 @@ def evaluate_model(predDF , model_name= 'Logistic Regression'):
     Y_test = predDF.select('candidate').toPandas()['candidate']
     Y_Pred = predDF.select('prediction').toPandas()['prediction']
     
-    print(f'{model_name} model Acccuracy: {accuracy_score(Y_test, Y_Pred)}')
+    accuracy = accuracy_score(Y_test, Y_Pred)
+    print(f'{model_name} model Acccuracy: {accuracy}')
     print(classification_report(Y_test, Y_Pred))
 
     # get confusion matrix
     cf_matrix = confusion_matrix(Y_test, Y_Pred)
     print(f'{model_name} Confusion Matrix:\n {cf_matrix}')
     
+    models_scores_table = pd.DataFrame({
+        "Model Name" : [model_name],
+        "AUROC" : [lr_auroc],
+        "AUPR" :[lr_aupr],
+        "Accuracy" :[accuracy],
+        "TP": [TP],
+        "TN": [TN],
+        "FN": [FN],
+        "FP": [FP]
+        
+    })
+    return models_scores_table
 
 '''
 ROC Dataframe
